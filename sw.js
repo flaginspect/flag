@@ -1,6 +1,6 @@
 // Keeps FLAG on the phone so it opens with no signal. Only sealed files are cached; nothing readable.
 // The plate reader (open-source Tesseract, about 8 MB) sits in its own cache that survives app updates.
-const V = "flag-2026.11.23-1", OCR = "flag-ocr-v1", PS = "flag-ps-v2";
+const V = "flag-2026.11.23-2", OCR = "flag-ocr-v1", PS = "flag-ps-v2";
 const FILES = ["./", "index.html", "app.enc", "key.enc", "docx.umd.js", "pdf-lib.min.js", "qr.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png", "favicon.svg", "favicon.ico"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(V).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V && k !== OCR && k !== PS).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
